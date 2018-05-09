@@ -2,7 +2,7 @@ defmodule QuantifiedSelfPhoenix.FoodView do
   use QuantifiedSelfPhoenix.Web, :view
 
   def render("index.json", %{foods: foods}) do
-    %{data: render_many(foods, QuantifiedSelfPhoenix.FoodView, "food.json")}
+    render_many(foods, QuantifiedSelfPhoenix.FoodView, "food.json")
   end
 
   def render("show.json", %{food: food}) do
