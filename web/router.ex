@@ -5,7 +5,9 @@ defmodule QuantifiedSelfPhoenix.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", QuantifiedSelfPhoenix do
+  scope "/api/v1", QuantifiedSelfPhoenix do
     pipe_through :api
+    resources "/foods", FoodController, except: [:new, :edit]
+    resources "/meals", MealController, only: [:index]
   end
 end

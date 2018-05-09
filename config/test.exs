@@ -12,8 +12,6 @@ config :logger, level: :warn
 # Configure your database
 config :quantified_self_phoenix, QuantifiedSelfPhoenix.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
   database: "quantified_self_phoenix_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
