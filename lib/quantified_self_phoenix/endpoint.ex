@@ -1,6 +1,10 @@
 defmodule QuantifiedSelfPhoenix.Endpoint do
   use Phoenix.Endpoint, otp_app: :quantified_self_phoenix
 
+  plug CORSPlug
+
+  plug QuantifiedSelfPhoenix.Router
+
   socket "/socket", QuantifiedSelfPhoenix.UserSocket
 
   # Serve at "/" the static files from "priv/static" directory.
