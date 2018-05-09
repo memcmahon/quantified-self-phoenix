@@ -2,6 +2,7 @@ defmodule QuantifiedSelfPhoenix.Router do
   use QuantifiedSelfPhoenix.Web, :router
 
   pipeline :api do
+    plug CORSPlug, origins: ["*"]
     plug :accepts, ["json"]
   end
 
