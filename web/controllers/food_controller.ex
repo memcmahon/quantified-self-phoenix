@@ -9,9 +9,8 @@ defmodule QuantifiedSelfPhoenix.FoodController do
     render(conn, "index.json", foods: foods)
   end
 
-  # def create(conn, %{"food" => food_params}) do
   def create(conn, _params) do
-    {status, data, conn_info} = read_body(conn)
+    {_status, data, _conn_info} = read_body(conn)
     food_params = Poison.Parser.parse!(data)["food"]
 
     changeset = Food.changeset(%Food{}, food_params)
@@ -34,8 +33,11 @@ defmodule QuantifiedSelfPhoenix.FoodController do
     render(conn, "show.json", food: food)
   end
 
-  def update(conn, %{"id" => id, "food" => food_params}) do
+  def update(conn, %{"id" => id}) do
     food = Repo.get!(Food, id)
+    {_status, data, _conn_info} = read_body(conn)
+    food_params = Poison.Parser.parse!(data)["food"]
+
     changeset = Food.changeset(food, food_params)
 
     case Repo.update(changeset) do
