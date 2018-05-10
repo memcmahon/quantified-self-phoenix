@@ -1,5 +1,6 @@
 defmodule QuantifiedSelfPhoenix.FoodController do
   use QuantifiedSelfPhoenix.Web, :controller
+  require IEx
 
   alias QuantifiedSelfPhoenix.Food
 
@@ -8,7 +9,11 @@ defmodule QuantifiedSelfPhoenix.FoodController do
     render(conn, "index.json", foods: foods)
   end
 
-  def create(conn, %{"food" => food_params}) do
+  # def create(conn, %{"food" => food_params}) do
+  def create(conn, _params) do
+    {status, data, conn_info} = read_body(conn)
+    food_params = Poison.Parser.parse!(data)["food"]
+
     changeset = Food.changeset(%Food{}, food_params)
 
     case Repo.insert(changeset) do
