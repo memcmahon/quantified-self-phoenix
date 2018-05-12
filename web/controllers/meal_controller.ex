@@ -25,10 +25,11 @@ defmodule QuantifiedSelfPhoenix.MealController do
   #   end
   # end
   #
-  # def show(conn, %{"id" => id}) do
-  #   meal = Repo.get!(Meal, id)
-  #   render(conn, "show.json", meal: meal)
-  # end
+  def show(conn, %{"id" => id}) do
+    meal = Repo.get!(Meal, id)
+      |> Repo.preload(:foods)
+    render(conn, "show.json", meal: meal)
+  end
   #
   # def update(conn, %{"id" => id, "meal" => meal_params}) do
   #   meal = Repo.get!(Meal, id)
