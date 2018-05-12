@@ -5,9 +5,10 @@ defmodule QuantifiedSelfPhoenix.MealController do
 
   def index(conn, _params) do
     meals = Repo.all(Meal)
+      |> Repo.preload(:foods)
     render(conn, "index.json", meals: meals)
   end
-  # 
+  #
   # def create(conn, %{"meal" => meal_params}) do
   #   changeset = Meal.changeset(%Meal{}, meal_params)
   #
@@ -24,10 +25,11 @@ defmodule QuantifiedSelfPhoenix.MealController do
   #   end
   # end
   #
-  # def show(conn, %{"id" => id}) do
-  #   meal = Repo.get!(Meal, id)
-  #   render(conn, "show.json", meal: meal)
-  # end
+  def show(conn, %{"id" => id}) do
+    meal = Repo.get!(Meal, id)
+      |> Repo.preload(:foods)
+    render(conn, "show.json", meal: meal)
+  end
   #
   # def update(conn, %{"id" => id, "meal" => meal_params}) do
   #   meal = Repo.get!(Meal, id)
