@@ -12,5 +12,6 @@ defmodule QuantifiedSelfPhoenix.Router do
     resources "/meals", MealController, only: [:index]
     get "/meals/:id/foods", MealController, :show
     post "/meals/:meal_id/foods/:id", MealFoodController, :create
+    delete "/meals/:meal_id/foods/:id", MealFoodController, :delete
   end
 end
