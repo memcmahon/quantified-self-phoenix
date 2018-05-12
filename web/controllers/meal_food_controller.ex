@@ -2,13 +2,7 @@ defmodule QuantifiedSelfPhoenix.MealFoodController do
   use QuantifiedSelfPhoenix.Web, :controller
 
   alias QuantifiedSelfPhoenix.MealFood
-#
-#   def index(conn, _params) do
-#     mealfoods = Repo.all(MealFood)
-#     render(conn, "index.json", mealfoods: mealfoods)
-#   end
-#
-  # def create(conn, %{"meal_food" => meal_food_params}) do
+
   def create(conn, %{"id" => food_id, "meal_id" => meal_id}) do
     {food_id, _} = Integer.parse(food_id)
     {meal_id, _} = Integer.parse(meal_id)
@@ -26,33 +20,15 @@ defmodule QuantifiedSelfPhoenix.MealFoodController do
         |> render(QuantifiedSelfPhoenix.ChangesetView, "error.json", changeset: changeset)
     end
   end
-#
-#   def show(conn, %{"id" => id}) do
-#     meal_food = Repo.get!(MealFood, id)
-#     render(conn, "show.json", meal_food: meal_food)
-#   end
-#
-#   def update(conn, %{"id" => id, "meal_food" => meal_food_params}) do
-#     meal_food = Repo.get!(MealFood, id)
-#     changeset = MealFood.changeset(meal_food, meal_food_params)
-#
-#     case Repo.update(changeset) do
-#       {:ok, meal_food} ->
-#         render(conn, "show.json", meal_food: meal_food)
-#       {:error, changeset} ->
-#         conn
-#         |> put_status(:unprocessable_entity)
-#         |> render(QuantifiedSelfPhoenix.ChangesetView, "error.json", changeset: changeset)
-#     end
-#   end
-#
-#   def delete(conn, %{"id" => id}) do
-#     meal_food = Repo.get!(MealFood, id)
-#
-#     # Here we use delete! (with a bang) because we expect
-#     # it to always work (and if it does not, it will raise).
-#     Repo.delete!(meal_food)
-#
-#     send_resp(conn, :no_content, "")
-#   end
+
+  def delete(conn, %{"id" => food_id, "meal_id" => meal_id}) do
+    {food_id, _} = Integer.parse(food_id)
+    {meal_id, _} = Integer.parse(meal_id)
+
+    meal_food = Repo.get_by!(MealFood, %{meal_id: meal_id, food_id: food_id})
+
+    Repo.delete!(meal_food)
+
+    send_resp(conn, :no_content, "")
+  end
 end
