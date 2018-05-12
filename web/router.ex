@@ -10,5 +10,6 @@ defmodule QuantifiedSelfPhoenix.Router do
     pipe_through :api
     resources "/foods", FoodController, except: [:new, :edit]
     resources "/meals", MealController, only: [:index]
+    get "/meals/:id/foods", MealController, :show
   end
 end
