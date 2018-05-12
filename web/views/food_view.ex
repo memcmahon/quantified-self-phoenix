@@ -6,7 +6,7 @@ defmodule QuantifiedSelfPhoenix.FoodView do
   end
 
   def render("show.json", %{food: food}) do
-    %{data: render_one(food, QuantifiedSelfPhoenix.FoodView, "food.json")}
+    render_one(food, QuantifiedSelfPhoenix.FoodView, "food.json")
   end
 
   def render("food.json", %{food: food}) do
