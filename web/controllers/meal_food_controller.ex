@@ -1,28 +1,31 @@
-# defmodule QuantifiedSelfPhoenix.MealFoodController do
-#   use QuantifiedSelfPhoenix.Web, :controller
-#
-#   alias QuantifiedSelfPhoenix.MealFood
+defmodule QuantifiedSelfPhoenix.MealFoodController do
+  use QuantifiedSelfPhoenix.Web, :controller
+
+  alias QuantifiedSelfPhoenix.MealFood
 #
 #   def index(conn, _params) do
 #     mealfoods = Repo.all(MealFood)
 #     render(conn, "index.json", mealfoods: mealfoods)
 #   end
 #
-#   def create(conn, %{"meal_food" => meal_food_params}) do
-#     changeset = MealFood.changeset(%MealFood{}, meal_food_params)
-#
-#     case Repo.insert(changeset) do
-#       {:ok, meal_food} ->
-#         conn
-#         |> put_status(:created)
-#         |> put_resp_header("location", meal_food_path(conn, :show, meal_food))
-#         |> render("show.json", meal_food: meal_food)
-#       {:error, changeset} ->
-#         conn
-#         |> put_status(:unprocessable_entity)
-#         |> render(QuantifiedSelfPhoenix.ChangesetView, "error.json", changeset: changeset)
-#     end
-#   end
+  # def create(conn, %{"meal_food" => meal_food_params}) do
+  def create(conn, %{"id" => food_id, "meal_id" => meal_id}) do
+    {food_id, _} = Integer.parse(food_id)
+    {meal_id, _} = Integer.parse(meal_id)
+
+    changeset = MealFood.changeset(%MealFood{food_id: food_id, meal_id: meal_id})
+
+    case Repo.insert(changeset) do
+      {:ok, meal_food} ->
+        conn
+        |> put_status(:created)
+        |> render("show.json", meal_food: meal_food)
+      {:error, changeset} ->
+        conn
+        |> put_status(:unprocessable_entity)
+        |> render(QuantifiedSelfPhoenix.ChangesetView, "error.json", changeset: changeset)
+    end
+  end
 #
 #   def show(conn, %{"id" => id}) do
 #     meal_food = Repo.get!(MealFood, id)
@@ -52,4 +55,4 @@
 #
 #     send_resp(conn, :no_content, "")
 #   end
-# end
+end
