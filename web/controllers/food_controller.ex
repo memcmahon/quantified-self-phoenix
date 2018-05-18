@@ -53,8 +53,6 @@ defmodule QuantifiedSelfPhoenix.FoodController do
   def delete(conn, %{"id" => id}) do
     food = Repo.get!(Food, id)
 
-    # Here we use delete! (with a bang) because we expect
-    # it to always work (and if it does not, it will raise).
     Repo.delete!(food)
 
     send_resp(conn, :no_content, "")

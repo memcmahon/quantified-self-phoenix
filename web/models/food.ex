@@ -10,8 +10,6 @@ defmodule QuantifiedSelfPhoenix.Food do
     many_to_many :meals, QuantifiedSelfPhoenix.Meal, join_through: "mealfoods"
   end
 
-  # @required_fields ~w(name calories)
-
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
