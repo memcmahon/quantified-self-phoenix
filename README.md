@@ -1,19 +1,62 @@
-# QuantifiedSelfPhoenix
+# Quantified Self Elixir/Phoenix
 
-To start your Phoenix app:
+This is one of three identical APIs build as part of the [Quantified Self](http://backend.turing.io/module4/projects/quantified-self/quantified-self) project while at Turing.  Built over 5 days using Elixir and Phoenix, this is a RESTful JSON API that is designed to be used as a daily meal tracker.
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.create && mix ecto.migrate`
-  * Start Phoenix endpoint with `mix phoenix.server`
+The [endpoints](#endpoints) below can be explored using [curl](https://curl.haxx.se/), [Postman](https://www.getpostman.com/) or your preferred client.  This API is deployed at https://frozen-garden-41922.herokuapp.com/
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+## Local Installation
 
-Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
+If you would like to clone and use this repo locally, please follow the steps below:
 
-## Learn more
+```
+$ mix deps.get
+$ mix ecto.create
+$ mix ecto.migrate
+$ mix phx.server
+```
 
-  * Official website: http://www.phoenixframework.org/
-  * Guides: http://phoenixframework.org/docs/overview
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
+You can now navigate to `localhost:4000` and use the [endpoints](#endpoints) described below
+
+## Schema
+
+![Imgur](https://i.imgur.com/T6ImmLI.png)
+
+## <a name='endpoints'>Endpoints</a>
+
+### Food Endpoints
+
+```
+GET /api/v1/foods
+```
+```
+GET /api/v1/foods/:id
+```
+```
+POST /api/v1/foods
+   with body: { "food": { "name": "Name of food here", "calories": "Calories here"} }
+```
+```
+PATCH /api/v1/foods
+   with body: { "food": { "name": "Name of food here", "calories": "Calories here"} }
+```
+```
+DELETE /api/v1/foods/:id
+```
+
+### Meal Endpoints
+```
+GET /api/v1/meals
+```
+```
+GET /api/v1/meals/:meal_id/foods
+```
+```
+POST /api/v1/meals/:meal_id/foods/:food_id
+```
+```
+DELETE /api/v1/meals/:meal_id/foods/:food_id
+```
+
+## Prerequisites
+* Elixir
+* Phoenix
